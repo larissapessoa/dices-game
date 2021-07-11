@@ -1,0 +1,139 @@
+body {
+    display: flex;
+    justify-content: center;
+    font-family: sans-serif;
+    background-image: url("../images/dados.jpg");
+    background-position: center; /* Center the image */
+    background: rgb(255, 255, 255);
+    color: white;
+}
+
+p {
+    font: bold 16px Roboto;
+    color: rgb(0, 82, 130);
+}
+
+label {
+    font: bold 16px Roboto;
+    color: rgb(0, 134, 211);
+}
+
+h1 {
+    font: normal 24px Roboto;
+    color: rgb(0, 82, 130);
+    margin: 5px 0px;
+}
+
+input {
+    margin: 5px 10px 5px 5px;
+}
+
+.primary {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.option-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 10px;
+}
+
+.option-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    margin: 10px;
+    height: 0;
+    width: 0;
+}
+
+#player {
+    color: rgb(120, 194, 237);
+    margin: auto;
+}
+.checkmark:hover #player {
+    color: rgb(0, 82, 130);
+}
+.option-container input:checked ~ .checkmark #player {
+    color: rgb(0, 82, 130);
+}
+
+#dice {
+    font-size: 40px;
+    color: rgb(120, 194, 237);
+}
+#dice:hover {
+    font-size: 40px;
+    color: rgb(0, 82, 130);
+}
+.option-container input:checked ~ .checkmark #dice {
+    color: rgb(0, 82, 130);
+}
+
+#rounds {
+    font-size: 40px;
+    margin: auto;
+    color: rgb(120, 194, 237);
+}
+.checkmark:hover #rounds {
+    font-size: 40px;
+    margin: auto;
+    color: rgb(0, 82, 130);
+}
+.option-container input:checked ~ .checkmark #rounds {
+    color: rgb(0, 82, 130);
+}
+
+.checkmark {
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.option-section-container {
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-color: rgb(120, 194, 237);
+    border-radius: 20px;
+    margin: 20px;
+}
+.option-section-container:hover {
+    border-color: rgb(0, 82, 130);
+}
+
+.grid-container {
+    display: grid;
+    justify-content: center;
+    width: 100%;
+    grid-template-columns: 75% 75%;
+    grid-template-rows: 200px 200px;
+}
+
+.startButton {
+    width: 160px;
+    height: 50px;
+    font: bold 16px Roboto;
+    color: #ffffff;
+    background-color: rgb(0, 134, 211);
+    border-style: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.startButton:hover {
+    background-color: rgb(0, 82, 130);
+}
+
+.name-player {
+    border-color: rgb(0, 134, 211);
+    border-width: 0px 0px 1px 0px;
+}
+.name-player:focus {
+    border-color: rgb(0, 82, 130);
+    border-width: 0px 0px 2px 0px;
+    outline: none;
+}

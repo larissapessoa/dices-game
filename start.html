@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Jogo de dados</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="startstyle.css" />
+  <script src="https://kit.fontawesome.com/b9ede54a91.js" crossorigin="anonymous"></script>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <center>
+    <div class="primary">
+      <h1>Jogo de dados</h2>
+        <div class="grid-container">
+          <div class="option-section-container">
+            <p>Número de jogadores:</p>
+            <!-- number of players -->
+            <div style="display: flex; flex-direction: row; margin: auto;">
+              <label class="option-container">
+                <input class="selector" type="radio" checked="checked" id="two-players" name="2" value="2" />
+                <span class="checkmark">
+                  <i id="player" class="fas fa-user"></i>
+                  <i id="player" class="fas fa-user"></i>
+                </span>
+              </label>
+              <label class="option-container">
+                <input class="selector" type="radio" id="three-players" name="3" value="3" />
+                <span class="checkmark">
+                  <i id="player" class="fas fa-user"></i>
+                  <i id="player" class="fas fa-user"></i>
+                  <i id="player" class="fas fa-user"></i>
+                </span>
+              </label>
+              <label class="option-container">
+                <input class="selector" type="radio" id="four-players" name="4" value="4" />
+                <span class="checkmark">
+                  <i id="player" class="fas fa-user"></i>
+                  <i id="player" class="fas fa-user"></i>
+                  <i id="player" class="fas fa-user"></i>
+                  <i id="player" class="fas fa-user"></i>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="option-section-container">
+            <p>Jogadores:</p>
+            <!-- players -->
+            <div style="display: flex; flex-direction: row; margin: auto;">
+              <label>Jogador 1: 
+                <input class="name-player" />
+              </label>
+              <label>Jogador 2: 
+                <input class="name-player"/>
+              </label>
+            </div>
+            <div style="display: flex; flex-direction: row; margin: auto;">
+              <label>Jogador 3: 
+                <input class="name-player"/>
+              </label>
+              <label>Jogador 4: 
+                <input class="name-player"/>
+              </label>
+            </div>
+          </div>
+          <div class="option-section-container">
+            <p>Número de dados:</p>
+            <!-- number of dices -->
+            <div style="display: flex; flex-direction: row; margin: auto;">
+              <label class="option-container">1
+                <input type="radio" id="one-dice" checked="checked" class="selector" name="1" value="1" />
+                <span class="checkmark">
+                  <i id="dice" class="fas fa-dice-one"></i>
+                </span>
+              </label>
+              <label class="option-container">2
+                <input type="radio" id="two-dices" class="selector" name="2" value="2" />
+                <span class="checkmark">
+                  <i id="dice" class="fas fa-dice-two"></i>
+                </span>
+              </label>
+              <label class="option-container">3
+                <input type="radio" id="three-dices" class="selector" name="3" value="3" />
+                <span class="checkmark">
+                  <i id="dice" class="fas fa-dice-three"></i>
+                </span>
+              </label>
+              <label class="option-container">4
+                <input type="radio" id="four-dices" class="selector" name="4" value="4" />
+                <span class="checkmark">
+                  <i id="dice" class="fas fa-dice-four"></i>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="option-section-container">
+            <p>Número de rodadas:</p>
+            <!-- number of rounds -->
+            <div style="display: flex; flex-direction: row; margin: auto;">
+              <label class="option-container">
+                <input type="radio" id="five-rounds" checked="checked" class="selector" name="5" value="5" />
+                <span class="checkmark">
+                  <p id="rounds">5</p>
+                </span>
+              </label>
+              <label class="option-container">
+                <input type="radio" id="six-rounds" class="selector" name="6" value="6" />
+                <span class="checkmark">
+                  <p id="rounds">6</p>
+                </span>
+              </label>
+              <label class="option-container">
+                <input type="radio" id="seven-rounds" class="selector" name="7" value="7" />
+                <span class="checkmark">
+                  <p id="rounds">7</p>
+                </span>
+              </label>
+              <label class="option-container">
+                <input type="radio" id="eight-rounds" class="selector" name="8" value="8" />
+                <span class="checkmark">
+                  <p id="rounds">8</p>
+                </span>
+              </label>
+              <label class="option-container">
+                <input type="radio" id="nine-rounds" class="selector" name="9" value="9" />
+                <span class="checkmark">
+                  <p id="rounds">9</p>
+                </span>
+              </label>
+              <label class="option-container">
+                <input type="radio" id="ten-rounds" class="selector" name="10" value="10" />
+                <span class="checkmark">
+                  <p id="rounds">10</p>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <button class="startButton">Iniciar Partida</button>
+  </center>
+  <script src="main.js"></script>
+</body>
+
+</html>
