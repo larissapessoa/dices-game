@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
-  <title>Jogo de dados</title>
+  <title>Jogo de Dados</title>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
 
@@ -14,39 +14,40 @@
 <body>
     <center>
         <div>
-            <h1>Rodada 1</h1>
+            <h1 id="rodada-atual">Rodada 1</h1>
             <div class="primary">
                 <div class="tournament">
                     <div class="dices">
                         <i id="dice" class="fas fa-dice-one"></i>
-                        <!-- <i id="dice" class="fas fa-dice-two"></i> -->
+                        <i id="dice" class="fas fa-dice-two"></i>
                         <i id="dice" class="fas fa-dice-three"></i>
-                        <!-- <i id="dice" class="fas fa-dice-four"></i> -->
-                        <i id="dice" class="fas fa-dice-five"></i>
-                        <i id="dice" class="fas fa-dice-six"></i>
                     </div>
-                    <button class="roll-dices-button">rolar dados</button>
+                    <button class="roll-dices-button" onclick="lancarDado();">ROLAR DADOS</button>
                 </div>
                 <div class="separator"></div>
                 <div class="score">
                     <div class="player-result">
-                        <h2>Jogador 1</h2>
-                        <p>Jogador 2</p>
-                        <p>Jogador 3</p>
-                        <p>Jogador 4</p>
+                        <p id="player-one">Jogador 1</p>
+                        <p id="player-two">Jogador 2</p>
+                        <p id="player-three">Jogador 3</p>
+                        <p id="player-four">Jogador 4</p>
                     </div>
                     <div class="player-result">
-                        <h2>13 pontos</h2>
-                        <p>9 pontos</p>
-                        <p>0 pontos</p>
-                        <p>0 pontos</p>
+                        <p id="player-one-score">0 pontos</p>
+                        <p id="player-two-score">0 pontos</p>
+                        <p id="player-three-score">0 pontos</p>
+                        <p id="player-four-score">0 pontos</p>
                     </div>
                 </div>
             </div>
-            <button class="reset-button">voltar a tela inicial</button>
+            <form method="get" action="/ESRT---Jogo-de-Dados-PC/start.html">
+                <button class="reset-button">VOLTAR À TELA INICIAL</button>
+            </form>
         </div>
     </center>
     <script src="main.js"></script>
 </body>
+
+<body onload=onloadTournamentData();></body>
 
 </html>

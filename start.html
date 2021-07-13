@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -51,18 +51,18 @@
             <!-- players -->
             <div style="display: flex; flex-direction: row; margin: auto;">
               <label>Jogador 1: 
-                <input class="name-player" />
+                <input class="name-player" id="player-one" type="text"/>
               </label>
               <label>Jogador 2: 
-                <input class="name-player"/>
+                <input class="name-player" id="player-two" type="text"/>
               </label>
             </div>
             <div style="display: flex; flex-direction: row; margin: auto;">
               <label>Jogador 3: 
-                <input class="name-player"/>
+                <input class="name-player" id="player-three" type="text"/>
               </label>
               <label>Jogador 4: 
-                <input class="name-player"/>
+                <input class="name-player"  id="player-four" type="text"/>
               </label>
             </div>
           </div>
@@ -86,12 +86,6 @@
                 <input type="radio" id="three-dices" class="selector" name="3" value="3" />
                 <span class="checkmark">
                   <i id="dice" class="fas fa-dice-three"></i>
-                </span>
-              </label>
-              <label class="option-container">4
-                <input type="radio" id="four-dices" class="selector" name="4" value="4" />
-                <span class="checkmark">
-                  <i id="dice" class="fas fa-dice-four"></i>
                 </span>
               </label>
             </div>
@@ -140,8 +134,9 @@
           </div>
         </div>
     </div>
-
-    <button class="startButton">Iniciar Partida</button>
+    <form method="get" action="/ESRT---Jogo-de-Dados-PC/tournament.html">
+        <button class="startButton" onclick="adicionarJogadores()">Iniciar Partida</button>
+    </form>
   </center>
   <script src="main.js"></script>
 </body>

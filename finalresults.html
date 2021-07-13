@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -14,7 +14,7 @@
 <body>
     <center>
         <div>
-            <h1>Vencedor!</h1>
+            <h1>Venceu!</h1>
             <div class="trophy-container">
                 <span class="trophy">
                     <i class="fas fa-trophy"></i>
@@ -25,23 +25,26 @@
             </div>
             <div class="results">
                 <div class="player-result">
-                    <h2>Jogador 3</h2>
-                    <p>Jogador 1</p>
-                    <p>Jogador 2</p>
-                    <p>Jogador 4</p>
+                    <h2 id="first-place">Jogador 3</h2>
+                    <p id="second-place">Jogador 1</p>
+                    <p id="third-place">Jogador 2</p>
+                    <p id="fourth-place">Jogador 4</p>
                 </div>
                 <div class="player-result">
-                    <h2>60 pontos</h2>
-                    <p>50 pontos</p>
-                    <p>40 pontos</p>
-                    <p>30 pontos</p>
+                    <h2 id="first-place-score">60 pontos</h2>
+                    <p id="second-place-score">50 pontos</p>
+                    <p id="third-place-score">40 pontos</p>
+                    <p id="fourth-place-score">30 pontos</p>
                 </div>
             </div>
-            <button class="reset-button">voltar ao início</button>
+            <button class="reset-button">VOLTAR AO INÍCIO</button>
         </div>
         
     </center>
     <script src="main.js"></script>
+</body>
+
+<body onload=onloadFinalResultsData();>
 </body>
 
 </html>
