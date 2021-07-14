@@ -3,15 +3,18 @@
 
 let currentClass = '';
 
+//sound effect of three dice rolling
+let diceRollingSound = new Audio("diceRollingSound.wav");
+
 //this function will generate a random number between 1 and 6 (or whatever value you send it)
 function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
 
 //dice roller function. 
-function rollDice(i) {
+function rollDie(i) {
     let randNum = getRandomInt(1, 7);
     console.log(randNum);
     let rollString = "";
@@ -53,7 +56,7 @@ function rollDice(i) {
     else {
         document.getElementsByClassName("fas fa-dice-three")[0].className = "fas fa-dice-" + rollString;
         if (randNum < 3) {
-            setTimeout(function () { document.getElementsByClassName("fas fa-dice-" + rollString)[1].className = "fas fa-dice-three"; }, 2000 + i*50);
+            setTimeout(function () { document.getElementsByClassName("fas fa-dice-" + rollString)[1].className = "fas fa-dice-three"; }, 2000 + i * 50);
         }
         else {
             setTimeout(function () { document.getElementsByClassName("fas fa-dice-" + rollString)[0].className = "fas fa-dice-three"; }, 2000 + i * 50);
@@ -63,123 +66,122 @@ function rollDice(i) {
 }
 
 //creates new player for tournament
-function jogador(nome) {
-    this.nome = nome;
-    this.pontuacao = 0;
+function player(name) {
+    this.name = name;
+    this.score = 0;
 }
 
 //declares player list
-let listaJogadores = [];
+let playerList = [];
 
 //adds new player
-function adicionarJogador(NovoJogador){ //max 4 jogadores
-    if(listaJogadores.length <= 3){
-        listaJogadores.push(new jogador(NovoJogador));
-    }else{
+function addPlayer(newPlayer) { //max 4 jogadores
+    if (playerList.length <= 3) {
+        playerList.push(new player(newPlayer));
+    } else {
         //mensagem de lista cheia
     }
-    console.log(listaJogadores);
+    console.log(playerList);
 }
 
 //removes player from players list
-function removerJogador(index) {
-    listaJogadores.splice(index, 1);
+function removePlayer(index) {
+    playerList.splice(index, 1);
 }
 
 
 
-let rodadaAtual = 1;
-let indexJogadorAtual = 0; //current player
+let currentRound = 1;
+let indexCurrentPlayer = 0; //current player
 
 //updates score for user
-function atualizarPlacar() {
-    if (indexJogadorAtual == 0) {
-        document.getElementById("player-one-score").innerHTML = listaJogadores[indexJogadorAtual].pontuacao.toString() + " pontos";
+function updateScoreCount() {
+    if (indexCurrentPlayer == 0) {
+        document.getElementById("player-one-score").innerHTML = playerList[indexCurrentPlayer].score.toString() + " pontos";
     }
-    else if (indexJogadorAtual == 1) {
-        document.getElementById("player-two-score").innerHTML = listaJogadores[indexJogadorAtual].pontuacao.toString() + " pontos";
+    else if (indexCurrentPlayer == 1) {
+        document.getElementById("player-two-score").innerHTML = playerList[indexCurrentPlayer].score.toString() + " pontos";
     }
-    else if (indexJogadorAtual == 2) {
-        document.getElementById("player-three-score").innerHTML = listaJogadores[indexJogadorAtual].pontuacao.toString() + " pontos";
+    else if (indexCurrentPlayer == 2) {
+        document.getElementById("player-three-score").innerHTML = playerList[indexCurrentPlayer].score.toString() + " pontos";
     }
     else {
-        document.getElementById("player-four-score").innerHTML = listaJogadores[indexJogadorAtual].pontuacao.toString() + " pontos";
+        document.getElementById("player-four-score").innerHTML = playerList[indexCurrentPlayer].score.toString() + " pontos";
     }
 }
 
 //updates rounds count for user
-function atualizarRodada() {
-    document.getElementById("rodada-atual").innerHTML = "Rodada " + rodadaAtual.toString() + " de " + numRodadas.toString();
+function updateRound() {
+    document.getElementById("current-round").innerHTML = "Rodada " + currentRo\und.toString() + " de " + totalRounds.toString();
 }
 
 //changes current player
-function proximoJogador(){
-    if(indexJogadorAtual+1 < listaJogadores.length){
-        indexJogadorAtual = indexJogadorAtual + 1;
-    }else{
-        indexJogadorAtual = 0;
-        rodadaAtual = rodadaAtual + 1;
-        if (rodadaAtual <= numRodadas) {
-            atualizarRodada();
+function nextPlayer() {
+    if (indexCurrentPlayer + 1 < playerList.length) {
+        indexCurrentPlayer = indexCurrentPlayer + 1;
+    } else {
+        indexCurrentPlayer = 0;
+        currentRound = currentRound + 1;
+        if (currentRound <= totalRounds) {
+            updateRound()();
         }
     }
-    console.log("Jogador atual: " + listaJogadores[indexJogadorAtual].nome);
+    console.log("Current player: " + playerList[indexCurrentPlayer].name);
 }
 
 //returns highest scoring player and removes him from player list
-function vencedor() {
-    let maiorPontuacao = 0;
-    let indexMaior = 0;
-    for (i = 0; i < listaJogadores.length; i++) {
-        if (listaJogadores[i].pontuacao > maiorPontuacao) {
-            maiorPontuacao = listaJogadores[i].pontuacao;
-            indexMaior = i;
+function winner() {
+    let highestScore = 0;
+    let highestScoreIndex = 0;
+    for (i = 0; i < playerList.length; i++) {
+        if (playerList[i].score > highestScore) {
+            highestScore = playerList[i].score;
+            highestScoreIndex = i;
         }
     }
-    let vencedor = listaJogadores[indexMaior];
-    removerJogador(indexMaior);
-    console.log(vencedor);
-    return vencedor;
-    //tratar empate*
+    let winner = playerList[highestScoreIndex];
+    removePlayer(highestScoreIndex);
+    console.log(winner);
+    return winner;
 
 }
 
 //final results needed variables
-let primeiroColocado;
-let segundoColocado;
-let terceiroColocado;
-let quartoColocado;
+let firstPlace;
+let secondPlace;
+let thirdPlace;
+let fourthPlace;
 
 
 //This function saves all players names and scores and switches html page to the final results
-function fimDeJogo() {
-    primeiroColocado = vencedor();
-    localStorage.setItem("primeiroColocadoNome", primeiroColocado.nome);
-    localStorage.setItem("primeiroColocadoPontuacao", primeiroColocado.pontuacao);
-    if (numJogadores == 4) {
-        segundoColocado = vencedor();
-        terceiroColocado = vencedor();
-        quartoColocado = vencedor();
+function gameOver() {
+    firstPlace = winner();
+    localStorage.setItem("firstPlaceName", firstPlace.name);
+    localStorage.setItem("firstPlaceScore", firstPlace.score);
+    if (totalPlayers == 4) {
+        secondPlace = winner();
+        thirdPlace = winner();
+        fourthPlace = winner();
 
-        localStorage.setItem("segundoColocadoNome", segundoColocado.nome);
-        localStorage.setItem("terceiroColocadoNome", terceiroColocado.nome);
-        localStorage.setItem("quartoColocadoNome", quartoColocado.nome);
-        localStorage.setItem("segundoColocadoPontuacao", segundoColocado.pontuacao);
-        localStorage.setItem("terceiroColocadoPontuacao", terceiroColocado.pontuacao);
-        localStorage.setItem("quartoColocadoPontuacao", quartoColocado.pontuacao);
+        localStorage.setItem("secondPlaceName", secondPlace.name);
+        localStorage.setItem("thirdPlaceName", thirdPlace.name);
+        localStorage.setItem("fourthPlaceName", fourthPlace.name);
+        localStorage.setItem("secondPlaceScore", secondPlace.score);
+        localStorage.setItem("thirdPlaceScore", thirdPlace.score);
+        localStorage.setItem("fourthPlaceScore", fourthPlace.score);
     }
-    else if (numJogadores == 3) {
-        segundoColocado = vencedor();
-        terceiroColocado = vencedor();
-        localStorage.setItem("segundoColocadoNome", segundoColocado.nome);
-        localStorage.setItem("terceiroColocadoNome", terceiroColocado.nome);
-        localStorage.setItem("segundoColocadoPontuacao", segundoColocado.pontuacao);
-        localStorage.setItem("terceiroColocadoPontuacao", terceiroColocado.pontuacao);
+    else if (totalPlayers == 3) {
+        secondPlace = winner();
+        thirdPlace = winner();
+        localStorage.setItem("secondPlaceName", secondPlace.name);
+        localStorage.setItem("thirdPlaceName", thirdPlace.name);
+        localStorage.setItem("secondPlaceScore", secondPlace.score);
+        localStorage.setItem("thirdPlaceScore", thirdPlace.score);
     }
     else {
-        segundoColocado = vencedor();
-        localStorage.setItem("segundoColocadoNome", segundoColocado.nome);
-        localStorage.setItem("segundoColocadoPontuacao", segundoColocado.nome);
+        secondPlace = winner();
+        localStorage.setItem("secondPlaceName", secondPlace.name);
+        localStorage.setItem("secondPlaceScore", secondPlace.name);
     }
 
 
@@ -189,211 +191,212 @@ function fimDeJogo() {
 
 
 //dice rolls and score calculation function
-function lancarDado(){
-    if (listaJogadores.length > 0) {
-        if (rodadaAtual <= numRodadas) {
+function diceRollerAndScoreCalculator() {
+    if (playerList.length > 0) {
+        if (currentRound <= totalRounds) {
             let i = 0;
-            let ultimoLancamento = 0;
-            while (i < numDados) {
-                ultimoLancamento = rollDice(i);
-                listaJogadores[indexJogadorAtual].pontuacao = listaJogadores[indexJogadorAtual].pontuacao + ultimoLancamento;
+            let lastRoll = 0;
+            diceRollingSound.currentTime = 0;
+            diceRollingSound.play();
+            while (i < totalDice) {
+                lastRoll = rollDie(i);
+                playerList[indexCurrentPlayer].score = playerList[indexCurrentPlayer].score + lastRoll;
                 i = i + 1;
-            }  
-            atualizarPlacar();
-            proximoJogador(); 
+            }
+            updateScoreCount();
+            nextPlayer();
         }
         else {
-            fimDeJogo();
-        } 
-    }else{
-        //faz nada
-        console.log("Sem jogadores!");
+            gameOver();
+        }
+    } else {
+        //nothing
     }
 }
 
 //default values
-let numDados = 1;
-let numJogadores = 2;
-let numRodadas = 5;
-let nomeJogador1 = "";
-let nomeJogador2 = "";
-let nomeJogador3 = "";
-let nomeJogador4 = "";
+let totalDice = 1;
+let totalPlayers = 2;
+let totalRounds = 5;
+let playerName1 = "";
+let playerName2 = "";
+let playerName3 = "";
+let playerName4 = "";
 
 //start page game settings detection
 document.getElementById("one-dice").onclick = function (e) {
-    numDados = 1;
-    localStorage.setItem("numDados", numDados);
+    totalDice = 1;
+    localStorage.setItem("totalDice", totalDice);
 };
 
 document.getElementById("two-dices").onclick = function (e) {
-    numDados = 2;
-    localStorage.setItem("numDados", numDados);
+    totalDice = 2;
+    localStorage.setItem("totalDice", totalDice);
 };
 
 document.getElementById("three-dices").onclick = function (e) {
-    numDados = 3;
-    localStorage.setItem("numDados", numDados);
+    totalDice = 3;
+    localStorage.setItem("totalDice", totalDice);
 };
 
 document.getElementById("five-rounds").onclick = function (e) {
-    numRodadas = 5;
-    localStorage.setItem("numRodadas", numRodadas);
+    totalRounds = 5;
+    localStorage.setItem("totalRounds", totalRounds);
 };
 
 document.getElementById("six-rounds").onclick = function (e) {
-    numRodadas = 6;
-    localStorage.setItem("numRodadas", numRodadas);
+    totalRounds = 6;
+    localStorage.setItem("totalRounds", totalRounds);
 };
 
 document.getElementById("seven-rounds").onclick = function (e) {
-    numRodadas = 7;
-    localStorage.setItem("numRodadas", numRodadas);
+    totalRounds = 7;
+    localStorage.setItem("totalRounds", totalRounds);
 };
 
 document.getElementById("eight-rounds").onclick = function (e) {
-    numRodadas = 8;
-    localStorage.setItem("numRodadas", numRodadas);
+    totalRounds = 8;
+    localStorage.setItem("totalRounds", totalRounds);
 };
 
 document.getElementById("nine-rounds").onclick = function (e) {
-    numRodadas = 9;
-    localStorage.setItem("numRodadas", numRodadas);
+    totalRounds = 9;
+    localStorage.setItem("totalRounds", totalRounds);
 };
 
 document.getElementById("ten-rounds").onclick = function (e) {
-    numRodadas = 10;
-    localStorage.setItem("numRodadas", numRodadas);
+    totalRounds = 10;
+    localStorage.setItem("totalRounds", totalRounds);
 };
 
 document.getElementById("two-players").onclick = function (e) {
-    numJogadores = 2;
-    localStorage.setItem("numJogadores", numJogadores);
+    totalPlayers = 2;
+    localStorage.setItem("totalPlayers", totalPlayers);
 };
 
 document.getElementById("three-players").onclick = function (e) {
-    numJogadores = 3;
-    localStorage.setItem("numJogadores", numJogadores);
+    totalPlayers = 3;
+    localStorage.setItem("totalPlayers", totalPlayers);
 };
 
 document.getElementById("four-players").onclick = function (e) {
-    numJogadores = 4;
-    localStorage.setItem("numJogadores", numJogadores);
+    totalPlayers = 4;
+    localStorage.setItem("totalPlayers", totalPlayers);
 };
 
 function adicionarJogadores() { //max 4 jogadores
-    nomeJogador1 = document.getElementById("player-one").value;
-    nomeJogador2 = document.getElementById("player-two").value;
-    nomeJogador3 = document.getElementById("player-three").value;
-    nomeJogador4 = document.getElementById("player-four").value;
+    playerName1 = document.getElementById("player-one").value;
+    playerName2 = document.getElementById("player-two").value;
+    playerName3 = document.getElementById("player-three").value;
+    playerName4 = document.getElementById("player-four").value;
 
-    localStorage.setItem("nomeJogador1", nomeJogador1);
-    localStorage.setItem("nomeJogador2", nomeJogador2);
-    localStorage.setItem("nomeJogador3", nomeJogador3);
-    localStorage.setItem("nomeJogador4", nomeJogador4);
+    localStorage.setItem("playerName1", playerName1);
+    localStorage.setItem("playerName2", playerName2);
+    localStorage.setItem("playerName3", playerName3);
+    localStorage.setItem("playerName4", playerName4);
 }
 
 //loads all settings from start page
 function onloadTournamentData() {
-    nomeJogador1 = localStorage.getItem("nomeJogador1");
-    nomeJogador2 = localStorage.getItem("nomeJogador2");
-    nomeJogador3 = localStorage.getItem("nomeJogador3");
-    nomeJogador4 = localStorage.getItem("nomeJogador4");
-    numDados = parseInt(localStorage.getItem("numDados"));
-    numJogadores = parseInt(localStorage.getItem("numJogadores"));
-    numRodadas = parseInt(localStorage.getItem("numRodadas"));
-   
-    document.getElementById("rodada-atual").innerHTML = "Rodada 1 de " + numRodadas.toString();
-    
-    if (numDados == 2) {
+    playerName1 = localStorage.getItem("playerName1");
+    playerName2 = localStorage.getItem("playerName2");
+    playerName3 = localStorage.getItem("playerName3");
+    playerName4 = localStorage.getItem("playerName4");
+    totalDice = parseInt(localStorage.getItem("totalDice"));
+    totalPlayers = parseInt(localStorage.getItem("totalPlayers"));
+    totalRounds = parseInt(localStorage.getItem("totalRounds"));
+
+    document.getElementById("rodada-atual").innerHTML = "Rodada 1 de " + totalRounds.toString();
+
+    if (totalDice == 2) {
         document.getElementsByClassName("fas fa-dice-three")[0].className = "";
     }
-    else if (numDados == 1) {
+    else if (totalDice == 1) {
         document.getElementsByClassName("fas fa-dice-three")[0].className = "";
         document.getElementsByClassName("fas fa-dice-two")[0].className = "";
     }
 
-    document.getElementById("player-one").innerHTML = nomeJogador1;
-    if (numJogadores == 4) {
-        document.getElementById("player-four").innerHTML = nomeJogador4;
-        document.getElementById("player-three").innerHTML = nomeJogador3;
-        document.getElementById("player-two").innerHTML = nomeJogador2;
-        adicionarJogador(nomeJogador1);
-        adicionarJogador(nomeJogador2);
-        adicionarJogador(nomeJogador3);
-        adicionarJogador(nomeJogador4);
+    document.getElementById("player-one").innerHTML = playerName1;
+    if (totalPlayers == 4) {
+        document.getElementById("player-four").innerHTML = playerName4;
+        document.getElementById("player-three").innerHTML = playerName3;
+        document.getElementById("player-two").innerHTML = playerName2;
+        addPlayer(playerName1);
+        addPlayer(playerName2);
+        addPlayer(playerName3);
+        addPlayer(playerName4);
     }
-    else if (numJogadores == 3) {
+    else if (totalPlayers == 3) {
         document.getElementById("player-four").innerHTML = "";
         document.getElementById("player-four-score").innerHTML = "";
-        document.getElementById("player-three").innerHTML = nomeJogador3;
-        document.getElementById("player-two").innerHTML = nomeJogador2;
-        adicionarJogador(nomeJogador1);
-        adicionarJogador(nomeJogador2);
-        adicionarJogador(nomeJogador3);
+        document.getElementById("player-three").innerHTML = playerName3;
+        document.getElementById("player-two").innerHTML = playerName2;
+        addPlayer(playerName1);
+        addPlayer(playerName2);
+        addPlayer(playerName3);
     }
     else {
         document.getElementById("player-four").innerHTML = "";
         document.getElementById("player-four-score").innerHTML = "";
         document.getElementById("player-three").innerHTML = "";
         document.getElementById("player-three-score").innerHTML = "";
-        document.getElementById("player-two").innerHTML = nomeJogador2;
-        adicionarJogador(nomeJogador1);
-        adicionarJogador(nomeJogador2);
+        document.getElementById("player-two").innerHTML = playerName2;
+        addPlayer(playerName1);
+        addPlayer(playerName2);
     }
 
-    console.log(numJogadores);
-    console.log(nomeJogador1);
-    console.log(nomeJogador2);
-    console.log(nomeJogador3);
-    console.log(nomeJogador4);
-    console.log(numDados);
-    console.log(numRodadas);
-    console.log(listaJogadores);
+    console.log(totalPlayers);
+    console.log(playerName1);
+    console.log(playerName2);
+    console.log(playerName3);
+    console.log(playerName4);
+    console.log(totalDice);
+    console.log(totalRounds);
+    console.log(playerList);
 }
 
 //loads all players names and scores from tournament html page
 function onloadFinalResultsData() {
-    numJogadores = parseInt(localStorage.getItem("numJogadores"));
-    primeiroColocado = [localStorage.getItem("primeiroColocadoNome"), localStorage.getItem("primeiroColocadoPontuacao")];
+    totalPlayers = parseInt(localStorage.getItem("totalPlayers"));
+    firstPlace = [localStorage.getItem("firstPlaceName"), localStorage.getItem("firstPlaceScore")];
 
-    document.getElementById("first-place").innerHTML = primeiroColocado[0];
-    document.getElementById("first-place-score").innerHTML = primeiroColocado[1] + " pontos";
+    document.getElementById("first-place").innerHTML = firstPlace[0];
+    document.getElementById("first-place-score").innerHTML = firstPlace[1] + " pontos";
 
 
-    if (numJogadores == 4) {
-        quartoColocado = [localStorage.getItem("quartoColocadoNome"), localStorage.getItem("quartoColocadoPontuacao")];
-        terceiroColocado = [localStorage.getItem("terceiroColocadoNome"), localStorage.getItem("terceiroColocadoPontuacao")];
-        segundoColocado = [localStorage.getItem("segundoColocadoNome"), localStorage.getItem("segundoColocadoPontuacao")];
+    if (totalPlayers == 4) {
+        fourthPlace = [localStorage.getItem("fourthPlaceName"), localStorage.getItem("fourthPlaceScore")];
+        thirdPlace = [localStorage.getItem("thirdPlaceName"), localStorage.getItem("thirdPlaceScore")];
+        secondPlace = [localStorage.getItem("secondPlaceName"), localStorage.getItem("secondPlaceScore")];
 
-        document.getElementById("fourth-place").innerHTML = quartoColocado[0];
-        document.getElementById("third-place").innerHTML = terceiroColocado[0];
-        document.getElementById("second-place").innerHTML = segundoColocado[0];
-        document.getElementById("fourth-place-score").innerHTML = quartoColocado[1] + " pontos";
-        document.getElementById("third-place-score").innerHTML = terceiroColocado[1] + " pontos";
-        document.getElementById("second-place-score").innerHTML = segundoColocado[1] + " pontos";
+        document.getElementById("fourth-place").innerHTML = fourthPlace[0];
+        document.getElementById("third-place").innerHTML = thirdPlace[0];
+        document.getElementById("second-place").innerHTML = secondPlace[0];
+        document.getElementById("fourth-place-score").innerHTML = fourthPlace[1] + " pontos";
+        document.getElementById("third-place-score").innerHTML = thirdPlace[1] + " pontos";
+        document.getElementById("second-place-score").innerHTML = secondPlace[1] + " pontos";
     }
-    else if (numJogadores == 3) {
-        terceiroColocado = [localStorage.getItem("terceiroColocadoNome"), localStorage.getItem("terceiroColocadoPontuacao")];
-        segundoColocado = [localStorage.getItem("segundoColocadoNome"), localStorage.getItem("segundoColocadoPontuacao")];
+    else if (totalPlayers == 3) {
+        thirdPlace = [localStorage.getItem("thirdPlaceName"), localStorage.getItem("thirdPlaceScore")];
+        secondPlace = [localStorage.getItem("secondPlaceName"), localStorage.getItem("secondPlaceScore")];
 
         document.getElementById("fourth-place").innerHTML = "";
         document.getElementById("fourth-place-score").innerHTML = "";
 
-        document.getElementById("third-place").innerHTML = terceiroColocado[0];
-        document.getElementById("second-place").innerHTML = segundoColocado[0];
-        document.getElementById("third-place-score").innerHTML = terceiroColocado[1] + " pontos";
-        document.getElementById("second-place-score").innerHTML = segundoColocado[1] + " pontos";
+        document.getElementById("third-place").innerHTML = thirdPlace[0];
+        document.getElementById("second-place").innerHTML = secondPlace[0];
+        document.getElementById("third-place-score").innerHTML = thirdPlace[1] + " pontos";
+        document.getElementById("second-place-score").innerHTML = secondPlace[1] + " pontos";
     }
     else {
-        segundoColocado = [localStorage.getItem("segundoColocadoNome"), localStorage.getItem("segundoColocadoPontuacao")];
+        secondPlace = [localStorage.getItem("secondPlaceName"), localStorage.getItem("secondPlaceScore")];
 
         document.getElementById("fourth-place").innerHTML = "";
         document.getElementById("fourth-place-score").innerHTML = "";
         document.getElementById("third-place").innerHTML = "";
         document.getElementById("third-place-score").innerHTML = "";
 
-        document.getElementById("second-place").innerHTML = segundoColocado[0];
-        document.getElementById("second-place-score").innerHTML = segundoColocado[1] + " pontos";
+        document.getElementById("second-place").innerHTML = secondPlace[0];
+        document.getElementById("second-place-score").innerHTML = secondPlace[1] + " pontos";
     }
 }

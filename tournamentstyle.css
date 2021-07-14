@@ -71,7 +71,9 @@ p {
     font: bold 16px Roboto;
     color: rgb(0, 82, 130);
     background-color: rgb(255, 255, 255);
-    border-style: none;
+    border-width: 2px;
+    border-color: rgb(0, 134, 211);
+    border-style: solid;
     border-radius: 10px;
     margin: 0px auto;
     cursor: pointer;
