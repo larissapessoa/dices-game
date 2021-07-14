@@ -1,0 +1,1 @@
+To make sure it works, put this folder in C:/ directory. To start application correctly, use any recent browser to run "start.html".
