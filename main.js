@@ -1,7 +1,6 @@
 //Dado (retirado da internet e adaptado)
 //select the classes we require
-let cube = document.querySelector('.cube');
-let rollBtn = document.querySelector('.rollBtn');
+
 let currentClass = '';
 
 //this function will generate a random number between 1 and 6 (or whatever value you send it)
@@ -11,21 +10,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
 
-//our main roll dice function on click
-/*function rollDice() {
-    let randNum = getRandomInt(1,7); 
-    console.log(randNum )
-    let showClass = 'show-' + randNum;
-    console.log(showClass)
-    if ( currentClass ) {
-        cube.classList.remove( currentClass );
-    }
-    //cube.classList.add( showClass );
-    //set the current class to the randomly generated number
-    currentClass = showClass;
-    return randNum;
-}*/
-
+//dice roller function. 
 function rollDice(i) {
     let randNum = getRandomInt(1, 7);
     console.log(randNum);
@@ -77,16 +62,16 @@ function rollDice(i) {
     return randNum;
 }
 
-//----------------------------------------------------------------------------------------------------------------------//
-
-//Jogadores
+//creates new player for tournament
 function jogador(nome) {
     this.nome = nome;
     this.pontuacao = 0;
 }
 
+//declares player list
 let listaJogadores = [];
 
+//adds new player
 function adicionarJogador(NovoJogador){ //max 4 jogadores
     if(listaJogadores.length <= 3){
         listaJogadores.push(new jogador(NovoJogador));
@@ -96,18 +81,17 @@ function adicionarJogador(NovoJogador){ //max 4 jogadores
     console.log(listaJogadores);
 }
 
-function removerJogador(jogador) {
-    if (listaJogadores.length > 1) {
-        let index = listaJogadores.indexOf(jogador.nome == jogador);
-        listaJogadores.splice(index, 1);
-    }
+//removes player from players list
+function removerJogador(index) {
+    listaJogadores.splice(index, 1);
 }
 
 
-//Lançamentos
-let rodadaAtual = 1; //parametro
-let indexJogadorAtual = 0; //jogador jogando no momento]
 
+let rodadaAtual = 1;
+let indexJogadorAtual = 0; //current player
+
+//updates score for user
 function atualizarPlacar() {
     if (indexJogadorAtual == 0) {
         document.getElementById("player-one-score").innerHTML = listaJogadores[indexJogadorAtual].pontuacao.toString() + " pontos";
@@ -123,10 +107,12 @@ function atualizarPlacar() {
     }
 }
 
+//updates rounds count for user
 function atualizarRodada() {
     document.getElementById("rodada-atual").innerHTML = "Rodada " + rodadaAtual.toString() + " de " + numRodadas.toString();
 }
 
+//changes current player
 function proximoJogador(){
     if(indexJogadorAtual+1 < listaJogadores.length){
         indexJogadorAtual = indexJogadorAtual + 1;
@@ -140,7 +126,8 @@ function proximoJogador(){
     console.log("Jogador atual: " + listaJogadores[indexJogadorAtual].nome);
 }
 
-function vencedor() { //retorna o objeto do jogador com maior pontuacao
+//returns highest scoring player and removes him from player list
+function vencedor() {
     let maiorPontuacao = 0;
     let indexMaior = 0;
     for (i = 0; i < listaJogadores.length; i++) {
@@ -150,21 +137,25 @@ function vencedor() { //retorna o objeto do jogador com maior pontuacao
         }
     }
     let vencedor = listaJogadores[indexMaior];
-    removerJogador(vencedor.nome);
+    removerJogador(indexMaior);
+    console.log(vencedor);
     return vencedor;
     //tratar empate*
 
 }
 
+//final results needed variables
 let primeiroColocado;
 let segundoColocado;
 let terceiroColocado;
 let quartoColocado;
 
+
+//This function saves all players names and scores and switches html page to the final results
 function fimDeJogo() {
     primeiroColocado = vencedor();
     localStorage.setItem("primeiroColocadoNome", primeiroColocado.nome);
-    localStorage.setItem("primeiroColocadoPontuacao", primeiroColocado.nome);
+    localStorage.setItem("primeiroColocadoPontuacao", primeiroColocado.pontuacao);
     if (numJogadores == 4) {
         segundoColocado = vencedor();
         terceiroColocado = vencedor();
@@ -173,19 +164,19 @@ function fimDeJogo() {
         localStorage.setItem("segundoColocadoNome", segundoColocado.nome);
         localStorage.setItem("terceiroColocadoNome", terceiroColocado.nome);
         localStorage.setItem("quartoColocadoNome", quartoColocado.nome);
-        localStorage.setItem("segundoColocadoPontuacao", segundoColocado.nome);
-        localStorage.setItem("terceiroColocadoPontuacao", terceiroColocado.nome);
-        localStorage.setItem("quartoColocadoPontuacao", quartoColocado.nome);
+        localStorage.setItem("segundoColocadoPontuacao", segundoColocado.pontuacao);
+        localStorage.setItem("terceiroColocadoPontuacao", terceiroColocado.pontuacao);
+        localStorage.setItem("quartoColocadoPontuacao", quartoColocado.pontuacao);
     }
     else if (numJogadores == 3) {
         segundoColocado = vencedor();
         terceiroColocado = vencedor();
         localStorage.setItem("segundoColocadoNome", segundoColocado.nome);
         localStorage.setItem("terceiroColocadoNome", terceiroColocado.nome);
-        localStorage.setItem("segundoColocadoPontuacao", segundoColocado.nome);
-        localStorage.setItem("terceiroColocadoPontuacao", terceiroColocado.nome);
+        localStorage.setItem("segundoColocadoPontuacao", segundoColocado.pontuacao);
+        localStorage.setItem("terceiroColocadoPontuacao", terceiroColocado.pontuacao);
     }
-    else if (numJogadores == 2){
+    else {
         segundoColocado = vencedor();
         localStorage.setItem("segundoColocadoNome", segundoColocado.nome);
         localStorage.setItem("segundoColocadoPontuacao", segundoColocado.nome);
@@ -196,6 +187,8 @@ function fimDeJogo() {
 
 }
 
+
+//dice rolls and score calculation function
 function lancarDado(){
     if (listaJogadores.length > 0) {
         if (rodadaAtual <= numRodadas) {
@@ -217,16 +210,9 @@ function lancarDado(){
         console.log("Sem jogadores!");
     }
 }
-//rollBtn.addEventListener("click", lancarDado); //listenter do clique
 
-//geral
-function ResetarJogo(){
-    vencedor = [];
-    indexJogadorAtual = 0;
-    qtdLancamentos = 0;
-}
-
-let numDados = 2;
+//default values
+let numDados = 1;
 let numJogadores = 2;
 let numRodadas = 5;
 let nomeJogador1 = "";
@@ -234,7 +220,7 @@ let nomeJogador2 = "";
 let nomeJogador3 = "";
 let nomeJogador4 = "";
 
-
+//start page game settings detection
 document.getElementById("one-dice").onclick = function (e) {
     numDados = 1;
     localStorage.setItem("numDados", numDados);
@@ -307,6 +293,7 @@ function adicionarJogadores() { //max 4 jogadores
     localStorage.setItem("nomeJogador4", nomeJogador4);
 }
 
+//loads all settings from start page
 function onloadTournamentData() {
     nomeJogador1 = localStorage.getItem("nomeJogador1");
     nomeJogador2 = localStorage.getItem("nomeJogador2");
@@ -365,6 +352,7 @@ function onloadTournamentData() {
     console.log(listaJogadores);
 }
 
+//loads all players names and scores from tournament html page
 function onloadFinalResultsData() {
     numJogadores = parseInt(localStorage.getItem("numJogadores"));
     primeiroColocado = [localStorage.getItem("primeiroColocadoNome"), localStorage.getItem("primeiroColocadoPontuacao")];
