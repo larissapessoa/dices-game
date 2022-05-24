@@ -1,1 +1,7 @@
-To make sure it works, put this folder in C:/ directory. To start application correctly, use any recent browser to run "start.html".
+How to test:
+
+1) Run "npm install live-server"
+2) Run live-server
+3) Click on "start.html" on the page thats opens
+4) Choose number of players, dices and rounds
+

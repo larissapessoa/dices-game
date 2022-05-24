@@ -2,25 +2,23 @@ body {
     display: flex;
     justify-content: center;
     font-family: sans-serif;
-    background-image: url("../images/dados.jpg");
+    background-image: url("./images/dados-walpaper.jpg");
     background-position: center; /* Center the image */
-    background: rgb(255, 255, 255);
-    color: white;
 }
 
 p {
     font: bold 16px Roboto;
-    color: rgb(0, 82, 130);
+    color: rgb(10, 192, 3);
 }
 
 label {
     font: bold 16px Roboto;
-    color: rgb(0, 134, 211);
+    color: rgb(10, 192, 3);
 }
 
 h1 {
     font: normal 24px Roboto;
-    color: rgb(0, 82, 130);
+    color: rgb(10, 192, 3);
     margin: 5px 0px;
 }
 
@@ -49,33 +47,38 @@ input {
     width: 0;
 }
 
-#player {
-    color: rgb(120, 194, 237);
+#players {
+    font-size: 40px;
+    color: rgb(3, 16, 192);
     margin: auto;
 }
-.checkmark:hover #player {
+.checkmark:hover #players {
+    font-size: 40px;
+    margin: auto;
     color: rgb(0, 82, 130);
 }
-.option-container input:checked ~ .checkmark #player {
+.option-container input:checked ~ .checkmark #players {
     color: rgb(0, 82, 130);
 }
 
-#dice {
+#dices {
     font-size: 40px;
-    color: rgb(120, 194, 237);
+    margin: auto;
+    color: rgb(3, 16, 192);
 }
-#dice:hover {
+#dices:hover {
     font-size: 40px;
+    margin: auto;
     color: rgb(0, 82, 130);
 }
-.option-container input:checked ~ .checkmark #dice {
+.option-container input:checked ~ .checkmark #dices {
     color: rgb(0, 82, 130);
 }
 
 #rounds {
     font-size: 40px;
     margin: auto;
-    color: rgb(120, 194, 237);
+    color: rgb(3, 16, 192);
 }
 .checkmark:hover #rounds {
     font-size: 40px;
@@ -110,15 +113,14 @@ input {
     justify-content: center;
     width: 100%;
     grid-template-columns: 75% 75%;
-    grid-template-rows: 200px 200px;
+    grid-template-rows: 600px 400px;
 }
 
 .startButton {
-    width: 160px;
     height: 50px;
     font: bold 16px Roboto;
-    color: #ffffff;
-    background-color: rgb(0, 134, 211);
+    color: #e43131;
+    color: rgb(3, 16, 192);
     border-style: none;
     border-radius: 10px;
     cursor: pointer;

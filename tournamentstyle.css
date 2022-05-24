@@ -1,16 +1,23 @@
+body {
+    justify-content: center;
+    font-family: sans-serif;
+    background-image: url("./images/dados-background.jpg");
+    background-position: center; /* Center the image */
+}
+
 h1 {
     font: bold 36px Roboto;
-    color: rgb(0, 82, 130);
+    color: rgb(10, 192, 3);
 }
 
 h2 {
     font: bold 22px Roboto;
-    color: rgb(0, 82, 130);
+    color: rgb(10, 192, 3);
 }
 
 p {
     font: bold 18px Roboto;
-    color: rgb(120, 194, 237);
+    color: rgb(10, 192, 3);
     margin: 10px 0px;
 }
 
@@ -31,8 +38,8 @@ p {
 
 .separator {
     height: 300px;
-    width: 1px;
-    background-color: rgb(0, 82, 130);
+    width: 5px;
+    color: rgb(3, 16, 192);
 }
 
 .score {
@@ -54,7 +61,7 @@ p {
     height: 50px;
     font: bold 16px Roboto;
     color: rgb(255, 255, 255);
-    background-color: rgb(0, 134, 211);
+    color: rgb(10, 192, 3);
     border-style: none;
     border-radius: 10px;
     margin: 40px auto;
@@ -72,7 +79,7 @@ p {
     color: rgb(0, 82, 130);
     background-color: rgb(255, 255, 255);
     border-width: 2px;
-    border-color: rgb(0, 134, 211);
+    color: rgb(10, 192, 3);
     border-style: solid;
     border-radius: 10px;
     margin: 0px auto;
